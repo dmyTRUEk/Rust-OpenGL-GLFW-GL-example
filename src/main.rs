@@ -99,11 +99,6 @@ unsafe fn link_shader (vertex_shader: u32, fragment_shader: u32) -> u32 {
 
 
 
-unsafe fn render_frame (shader_program: u32, vao: u32) {
-}
-
-
-
 fn main () {
     // glfw: initialize and configure
     let mut glfw = glfw::init(glfw::FAIL_ON_ERRORS).unwrap();
