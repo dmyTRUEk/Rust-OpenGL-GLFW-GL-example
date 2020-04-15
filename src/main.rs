@@ -19,7 +19,6 @@ use crate::random::*;
 
 
 
-// const WINDOW_NAME: &str = "Game Of Life";
 const WINDOW_NAME: &str = "Hello Rust + OpenGL !";
 const SCREEN_W: u32 = 800;
 const SCREEN_H: u32 = 600;
@@ -119,7 +118,6 @@ fn main () {
     gl::load_with(|symbol| window.get_proc_address(symbol) as *const _);
 
     let mut vertices: Vec<f32> = vec![
-    // let mut vertices: [f32; 54] = [
     //    X     Y    Z      R    G    B
         -0.5, -0.5, 0.0,   1.0, 0.0, 0.0, 
          0.0, -0.5, 0.0,   1.0, 0.0, 0.0, 
@@ -142,27 +140,6 @@ fn main () {
 
         gl::DeleteShader(vertex_shader);
         gl::DeleteShader(fragment_shader);
-
-        // set up vertex data (and buffer(s)) and configure vertex attributes
-        // HINT: type annotation is crucial since default for float literals is f64
-        // let vertices_old: [f32; 9] = [
-        //     -0.5, -0.5, 0.0, // left
-        //      0.5, -0.5, 0.0, // right
-        //      0.0,  0.5, 0.0, // top
-        // ];
-
-        // let vertices_new: [f32; 36] = [
-        // //    X     Y    Z      R    G    B
-        //     -0.5, -0.5, 0.0,   1.0, 0.0, 0.0, 
-        //      0.0, -0.5, 0.0,   1.0, 0.0, 0.0, 
-        //      0.0,  0.0, 0.0,   1.0, 0.0, 0.0, 
-
-        //      0.5,  0.5, 0.0,   0.0, 1.0, 0.0, 
-        //      0.0,  0.5, 0.0,   0.0, 1.0, 0.0, 
-        //      0.0,  0.0, 0.0,   0.0, 1.0, 0.0, 
-        // ];
-
-        // let vertices = vertices_new;
 
         let (mut vbo, mut vao) = (0, 0);
         gl::GenVertexArrays(1, &mut vao);
@@ -188,7 +165,6 @@ fn main () {
         gl::VertexAttribPointer(1, 3, gl::FLOAT, gl::FALSE, stride, (3 * mem::size_of::<GLfloat>()) as *const c_void);
         gl::EnableVertexAttribArray(1);
         
-
         // note that this is allowed, the call to gl::VertexAttribPointer registered VBO as
         // the vertex attribute's bound vertex buffer object so afterwards we can safely unbind
         // gl::BindBuffer(gl::ARRAY_BUFFER, 0);
@@ -215,7 +191,6 @@ fn main () {
 
         // render:
         unsafe {
-            // render_frame(shader_program, vao);
             gl::ClearColor(0.2, 0.3, 0.3, 1.0);
             gl::Clear(gl::COLOR_BUFFER_BIT);
 
@@ -225,20 +200,6 @@ fn main () {
             // println!("should_draw_third_triangle = {}", should_draw_third_triangle);
 
             if should_add_new_triangle {
-                // vertices = vec![
-                // //    X     Y    Z      R    G    B
-                //     -0.5, -0.5, 0.0,   1.0, 0.0, 0.0, 
-                //      0.0, -0.5, 0.0,   1.0, 0.0, 0.0, 
-                //      0.0,  0.0, 0.0,   1.0, 0.0, 0.0, 
-
-                //      0.5,  0.5, 0.0,   0.0, 1.0, 0.0, 
-                //      0.0,  0.5, 0.0,   0.0, 1.0, 0.0, 
-                //      0.0,  0.0, 0.0,   0.0, 1.0, 0.0, 
-
-                //      0.5, -0.5, 0.0,   0.0, 0.0, 1.0,
-                //      0.0, -0.5, 0.0,   0.0, 0.0, 1.0,
-                //      0.0, -0.0, 0.0,   0.0, 0.0, 1.0,
-                // ];
                 should_add_new_triangle = false;
 
                 let new_vertices: Vec<f32> = vec![
@@ -250,18 +211,6 @@ fn main () {
                 for item in &new_vertices {
                     vertices.push(*item);
                 }
-            }
-            else {
-                // vertices = vec![
-                // //    X     Y    Z      R    G    B
-                //     -0.5, -0.5, 0.0,   1.0, 0.0, 0.0, 
-                //      0.0, -0.5, 0.0,   1.0, 0.0, 0.0, 
-                //      0.0,  0.0, 0.0,   1.0, 0.0, 0.0, 
-
-                //      0.5,  0.5, 0.0,   0.0, 1.0, 0.0, 
-                //      0.0,  0.5, 0.0,   0.0, 1.0, 0.0, 
-                //      0.0,  0.0, 0.0,   0.0, 1.0, 0.0, 
-                // ];
             }
 
             gl::BufferData(
@@ -307,7 +256,7 @@ fn process_events (
                 window.set_should_close(true);
             },
             glfw::WindowEvent::Key(Key::Space, _, Action::Press, _) => {
-                *should_draw_third_triangle = !*should_draw_third_triangle;
+                *should_draw_third_triangle = true;
             },
             _ => {}
         }
